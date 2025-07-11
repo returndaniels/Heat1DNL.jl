@@ -3,6 +3,9 @@ module Serialization
 include("Config.jl")
 using .Config
 
+include("Discretization.jl")
+using .Discretization
+
 using LinearAlgebra, SparseArrays, StaticArrays
 
 export K_serial, F_serial!, G_serial!, erro_serial
@@ -104,7 +107,7 @@ function G_serial!(G_ext_serial::Vector{Float64}, C_ext::Vector{Float64},
             c1 = C_ext[i]
             c2 = C_ext[j]
             @simd for p in 1:npg
-                g_eval = h * Config.g(c1 * Config.φ1P[p] + c2 * Config.φ2P[p]) / 2
+                g_eval = h * g(c1 * Config.φ1P[p] + c2 * Config.φ2P[p]) / 2
                 G_ext_serial[i] += Config.Wφ1P[p] * g_eval
                 G_ext_serial[j] += Config.Wφ2P[p] * g_eval
             end

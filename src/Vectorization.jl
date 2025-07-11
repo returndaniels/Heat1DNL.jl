@@ -3,6 +3,9 @@ module Vectorization
 include("Config.jl")
 using .Config
 
+include("Discretization.jl")
+using .Discretization
+
 using LinearAlgebra, SparseArrays
 
 export K_vectorized, F_vectorized!, G_vectorized!, erro_vectorized, WφP
@@ -82,7 +85,7 @@ Calcula o vetor não-linear `G_ext` com implementação vetorizada.
 function G_vectorized!(G_ext::Vector{Float64}, g_eval::Matrix{Float64}, values::Matrix{Float64},
                        C_ext::Vector{Float64}, ne::Int64, m::Int64, h::Float64, npg::Int64, EQoLG::Matrix{Int64})
     fill!(G_ext, 0.0)
-    @. g_eval = Config.g(Config.φ1P' * C_ext[EQoLG[:, 1]] + Config.φ2P' * C_ext[EQoLG[:, 2]])
+    @. g_eval = g(Config.φ1P' * C_ext[EQoLG[:, 1]] + Config.φ2P' * C_ext[EQoLG[:, 2]])
     mul!(values, g_eval, WφP)
     @simd for i in 1:2
         G_ext[EQoLG[:, i]] .+= values[:, i]

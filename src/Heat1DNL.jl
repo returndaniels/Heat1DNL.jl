@@ -29,6 +29,7 @@ using LinearAlgebra, BenchmarkTools
 # Exportar as principais funcionalidades
 export run_simulation, run_benchmark, solve_heat_equation_serial, solve_heat_equation_vectorized
 export run_complete_benchmark, benchmark_individual_functions, benchmark_complete_system
+export demo, main
 
 """
     run_simulation(option=1, method=:vectorized) -> (Vector{Float64}, Float64)
