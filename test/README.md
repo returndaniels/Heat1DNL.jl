@@ -31,6 +31,33 @@ Testes adicionais focados em:
 - **Performance** - Compara métodos serial vs vetorizado
 - **Escalabilidade** - Testa diferentes tamanhos de problema
 
+### `test_simple.jl` - Teste Simples
+
+Teste básico e rápido que verifica:
+
+- Carregamento do pacote
+- Funções básicas (`u`, `u0`, `g`, `f`)
+- Estruturas de discretização
+- Simulação completa com configuração padrão
+
+### `test_focused.jl` - Teste Focado
+
+Teste intermediário com configurações menores (`ne = 2^8`) que verifica:
+
+- Equivalência entre implementações serial e vetorizada
+- Propriedades físicas (decaimento temporal, conservação)
+- Interface de usuário (`run_simulation`, `run_benchmark`)
+- Execução mais rápida que os testes completos
+
+### `quick_test.jl` - Teste Rápido
+
+Teste minimalista que verifica apenas:
+
+- Carregamento do pacote
+- Funções matemáticas básicas
+- Estruturas de discretização
+- Execução de uma simulação simples
+
 ## Como Executar
 
 ### Testes Completos
@@ -40,16 +67,18 @@ Testes adicionais focados em:
 julia --project=. -e "using Pkg; Pkg.test()"
 ```
 
-### Teste Simples
-
-```bash
-# Para um teste rápido
-julia --project=. test_simple.jl
-```
-
 ### Testes Individuais
 
 ```bash
+# Teste simples e rápido
+julia --project=. test/test_simple.jl
+
+# Teste focado com configurações menores
+julia --project=. test/test_focused.jl
+
+# Teste rápido minimalista
+julia --project=. test/quick_test.jl
+
 # Apenas testes principais
 julia --project=. test/runtests.jl
 
@@ -110,7 +139,9 @@ test = ["Test"]
 
 ### Testes demoram muito
 
-- Use `test_simple.jl` para teste rápido
+- Use `test/quick_test.jl` para teste ultra-rápido
+- Use `test/test_simple.jl` para teste básico
+- Use `test/test_focused.jl` para teste intermediário
 - Configure `ne` menor nos testes de convergência
 - Reduza número de amostras nos benchmarks
 
