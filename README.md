@@ -207,6 +207,29 @@ Pkg.test("Heat1DNL")
 include("test/runtests.jl")
 ```
 
+## 📚 Documentação
+
+### Visualizar Documentação
+
+```bash
+# Opção 1: Script automático
+./view_docs.sh
+
+# Opção 2: Manual
+cd docs/
+julia --project=. make.jl
+cd build/
+python3 -m http.server 8080
+# Acesse: http://localhost:8080
+```
+
+A documentação inclui:
+
+- 📖 Guia de instalação e uso
+- 🔧 Referência completa da API
+- 📝 Tutoriais passo a passo
+- 🚀 Exemplos práticos
+
 ## 📚 Dependências
 
 - **Julia**: 1.11+
@@ -216,6 +239,7 @@ include("test/runtests.jl")
 - **FastGaussQuadrature**: Quadratura de Gauss
 - **BenchmarkTools**: Benchmarking preciso
 - **DotEnv**: Variáveis de ambiente
+- **Documenter**: Geração de documentação
 
 ## 🤝 Contribuindo
 
