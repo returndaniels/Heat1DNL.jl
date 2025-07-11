@@ -28,10 +28,8 @@ function K_serial(ne::Int64, m::Int64, h::Float64, npg::Int64,
                   alpha::Float64, beta::Float64, gamma::Float64, EQoLG::Matrix{Int64})::SparseMatrixCSC{Float64, Int64}
     @views begin
         K_local = @SMatrix [
-            dot(Config.W, 2alpha*(Config.dφ1P .* Config.dφ1P)/h + gamma*(Config.φ1P .* Config.dφ1P) + beta*h*(Config.φ1P .* Config.φ1P)/2),
-            dot(Config.W, 2alpha*(Config.dφ1P .* Config.dφ2P)/h + gamma*(Config.φ1P .* Config.dφ2P) + beta*h*(Config.φ1P .* Config.φ2P)/2);
-            dot(Config.W, 2alpha*(Config.dφ2P .* Config.dφ1P)/h + gamma*(Config.φ2P .* Config.dφ1P) + beta*h*(Config.φ2P .* Config.φ1P)/2),
-            dot(Config.W, 2alpha*(Config.dφ2P .* Config.dφ2P)/h + gamma*(Config.φ2P .* Config.dφ2P) + beta*h*(Config.φ2P .* Config.φ2P)/2)
+            dot(Config.W, 2alpha*(Config.dφ1P .* Config.dφ1P)/h + gamma*(Config.φ1P .* Config.dφ1P) + beta*h*(Config.φ1P .* Config.φ1P)/2) dot(Config.W, 2alpha*(Config.dφ1P .* Config.dφ2P)/h + gamma*(Config.φ1P .* Config.dφ2P) + beta*h*(Config.φ1P .* Config.φ2P)/2);
+            dot(Config.W, 2alpha*(Config.dφ2P .* Config.dφ1P)/h + gamma*(Config.φ2P .* Config.dφ1P) + beta*h*(Config.φ2P .* Config.φ1P)/2) dot(Config.W, 2alpha*(Config.dφ2P .* Config.dφ2P)/h + gamma*(Config.φ2P .* Config.dφ2P) + beta*h*(Config.φ2P .* Config.φ2P)/2)
         ]
 
         I, J, V = Vector{Int64}(undef, 4ne), Vector{Int64}(undef, 4ne), Vector{Float64}(undef, 4ne)

@@ -1,3 +1,5 @@
+using BenchmarkTools
+
 """
     benchmark(func, args, samples; evals=1)
 
