@@ -39,10 +39,10 @@ E condição inicial:
 ```julia
 # No REPL do Julia
 using Pkg
-Pkg.add(url="https://github.com/seu-usuario/Heat1DNL.jl")
+Pkg.add(url="https://github.com/returndaniels/Heat1DNL.jl")
 
 # Ou clone o repositório
-git clone https://github.com/seu-usuario/Heat1DNL.jl.git
+git clone https://github.com/returndaniels/Heat1DNL.jl.git
 cd Heat1DNL.jl
 julia --project=.
 ```
