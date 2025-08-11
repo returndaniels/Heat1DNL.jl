@@ -68,7 +68,7 @@ const b     = getenv_float("B_LIMITE", 1.0)
 const T     = getenv_float("T_LIMITE", 1.0)
 
 const npg   = getenv_int("NPG", 5)
-const ne    = getenv_int("NE", 2^18)
+const ne    = getenv_int("NE", 2^5)
 
 const m     = ne - 1
 const h     = (b - a) / ne
