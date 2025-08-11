@@ -98,7 +98,7 @@ println("Speedup do sistema: $(speedups["system"])x")
 
 ## ⚙️ Configuração
 
-O projeto usa variáveis de ambiente para configuração. Crie um arquivo `.env` na raiz do projeto:
+O projeto usa variáveis de ambiente para configuração. Crie um arquivo `.env` no diretório onde irá rodar o projeto:
 
 ```bash
 # Parâmetros físicos
