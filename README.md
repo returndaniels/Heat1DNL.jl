@@ -61,6 +61,34 @@ C, erro = Heat1DNL.run_simulation(1, :vectorized)
 C, erro = Heat1DNL.run_simulation(1, :serial)
 ```
 
+## 🛠️ Desenvolvimento Local com `Pkg.develop`
+
+Se você pretende modificar o código do pacote e testar localmente, a melhor prática é usar o modo _develop_ do Julia, que cria um link simbólico para o diretório local do pacote, facilitando atualizações sem precisar reinstalar.
+
+No REPL do Julia, faça:
+
+```julia
+using Pkg
+
+# Registre o pacote localmente para desenvolvimento
+Pkg.develop(path="/caminho/para/Heat1DNL.jl")
+
+# (Opcional, mas recomendado) Instale Revise para recarregar mudanças automaticamente
+Pkg.add("Revise")
+using Revise
+
+# Agora carregue o pacote normalmente
+using Heat1DNL
+```
+
+Com isso:
+
+- Toda alteração no código dentro da pasta `/caminho/para/Heat1DNL.jl` será refletida automaticamente (especialmente com Revise).
+- Você não precisa reinstalar ou reiniciar a sessão Julia após cada modificação.
+- Facilita testes rápidos e desenvolvimento contínuo.
+
+---
+
 ### Benchmark Completo
 
 ```julia
