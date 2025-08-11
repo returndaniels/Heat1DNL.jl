@@ -1,3 +1,38 @@
+using DotEnv
+
+"""
+    load_env_manual(env_path::AbstractString)
+
+Carrega variáveis do arquivo `.env` no `ENV` global, linha a linha, no formato `VAR=VAL`.
+Ignora linhas vazias e comentários (#).
+Não suporta export, aspas ou multilinhas.
+
+"""
+function load_env_manual(env_path::AbstractString)
+    if !isfile(env_path)
+        println("Arquivo .env não encontrado em: $env_path")
+        return
+    end
+
+    for line in eachline(env_path)
+        line_strip = strip(line)
+        if isempty(line_strip) || startswith(line_strip, "#")
+            continue
+        end
+        split_idx = findfirst(isequal('='), line_strip)
+        if split_idx === nothing
+            continue
+        end
+        key = strip(line_strip[1:split_idx-1])
+        val = strip(line_strip[split_idx+1:end])
+        if isempty(key) || isempty(val)
+            continue
+        end
+        ENV[key] = val
+    end
+end
+
+
 """
     getenv_float(var::String, default::Float64)
 

@@ -62,7 +62,7 @@ Todas as dependências são instaladas automaticamente.
 
 ### Arquivo de Configuração (Opcional)
 
-Crie um arquivo `.env` na raiz do projeto para personalizar os parâmetros:
+Crie um arquivo `.env` no diretório onde irá rodar o projeto para personalizar os parâmetros:
 
 ```bash
 # Parâmetros físicos

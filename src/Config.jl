@@ -42,19 +42,23 @@ problema estejam configurados corretamente e acessíveis por outros módulos com
 """
 
 
-using DotEnv
 using FastGaussQuadrature
-
-# Carrega variáveis do arquivo .env (na raiz do projeto)
-DotEnv.config()
-
 # Carrega funções auxiliares
-include("utils/env.jl")
+include("utils/env.jl")  # Define getenv_int, getenv_float, etc
+
+# Carrega variáveis de ambiente do arquivo `.env` do diretório atual
+load_env_manual(joinpath(pwd(), ".env"))
+
+
+# Exportação
 
 export samples
 export beta, alpha, gamma, a, b, T, npg
 export ne, m, h, tau, N
 export P, W, φ1P, φ2P, dφ1P, dφ2P, Wφ1P, Wφ2P
+
+
+# Parâmetros físicos, espaciais, temporais e discretização
 
 const samples = getenv_int("SAMPLES", 10^6)
 
@@ -72,25 +76,34 @@ const ne    = getenv_int("NE", 2^5)
 
 const m     = ne - 1
 const h     = (b - a) / ne
+
 const tau   = getenv_float("TAU", T / 20)
 const N     = trunc(Int, T / tau)
 
-# Pontos e pesos de Gauss-Legendre
+
+# Quadratura Gauss-Legendre
+
 const P, W = gausslegendre(npg)
 
-# Funções básicas no elemento padrão
+
+# Funções de forma lineares no elemento padrão e derivadas
+
 const φ1(ξ) = (1 - ξ) / 2
 const φ2(ξ) = (1 + ξ) / 2
 const dφ1(ξ) = -0.5
 const dφ2(ξ) = 0.5
 
-# Avaliação das funções nos pontos de Gauss
+
+# Avaliação das funções de forma nos pontos de Gauss
+
 const φ1P = φ1.(P)
 const φ2P = φ2.(P)
 const dφ1P = dφ1.(P)
 const dφ2P = dφ2.(P)
 
-# Produtos com pesos e Jacobiano
+
+# Produtos ponderados com pesos para integração vetorizada
+
 const Wφ1P = W .* φ1P
 const Wφ2P = W .* φ2P
 
